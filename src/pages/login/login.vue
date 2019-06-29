@@ -9,7 +9,7 @@
               <label for="email">邮箱：</label>
             </td>
             <td>
-              <input type="text" name="email" id="email" />
+              <input type="text" name="email" id="email" placeholder="请输入邮箱" v-model="account" />
             </td>
           </tr>
           <tr>
@@ -17,7 +17,7 @@
               <label for="password">密码：</label>
             </td>
             <td>
-              <input type="password" name="password" id="password" />
+              <input type="password" name="password" id="password" placeholder="密码随便写" v-model="password" />
             </td>
           </tr>
           <tr class="subTr">
@@ -30,7 +30,7 @@
           </tr>
           <tr class="subTr">
             <td colspan="2">
-              <input type="submit" value="登陆" />
+              <button @click.prevent = "loginSubmit" disabled = "disabled">{{ delayLoading ? '登陆中...' : '登录'}}</button>
             </td>
           </tr>
         </tbody>
@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import userDate from '@/mock/users.js'
+import '@/api/login.js'
 export default {};
 </script>
 
