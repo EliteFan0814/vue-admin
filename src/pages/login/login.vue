@@ -1,6 +1,6 @@
 <template>
   <div class="login-window">
-    <form id="loginForm" name="loginForm" method="post">
+    <form id="loginForm" name="loginForm" method="post" @submit.prevent="loginSubmit">
       <h1>登陆账号</h1>
       <table>
         <tbody>
@@ -9,7 +9,8 @@
               <label for="email">邮箱：</label>
             </td>
             <td>
-              <input type="text" name="email" id="email" placeholder="请输入邮箱" v-model="account" />
+              <input type="text" name="email" id="email" v-validate="'required|email'" placeholder="请输入邮箱" v-model="account" />
+              <span v-show = "errors.has('email')">{{ errors.first('email') }}</span>
             </td>
           </tr>
           <tr>
@@ -17,20 +18,21 @@
               <label for="password">密码：</label>
             </td>
             <td>
-              <input type="password" name="password" id="password" placeholder="密码随便写" v-model="password" />
+              <input type="password" name="password" id="password" placeholder="密码随便写" v-model="password"
+              />
             </td>
           </tr>
           <tr class="subTr">
             <td>admin 账户</td>
-            <td>aaa@bbb.ccc</td>
+            <td>{{accountArray[0].account}}</td>
           </tr>
           <tr class="subTr">
             <td>normal 账户</td>
-            <td>ddd@eee.fff</td>
+            <td>{{accountArray[1].account}}</td>
           </tr>
           <tr class="subTr">
             <td colspan="2">
-              <button @click.prevent = "loginSubmit" disabled = "disabled">{{ delayLoading ? '登陆中...' : '登录'}}</button>
+              <button type="submit" :disabled="delayLoading" >{{ delayLoading ? '登陆中...' : '登录'}}</button>
             </td>
           </tr>
         </tbody>
@@ -41,8 +43,39 @@
 
 <script>
 import userDate from '@/mock/users.js'
-import '@/api/login.js'
-export default {};
+import '@/api/mocklogin.js'
+
+export default {
+  name: 'login',
+  data(){
+    return {
+      delayLoading: false,
+      accountArray: userDate,
+      account: '',
+      password: ''
+    }
+  },
+  methods: {
+    loginSubmit(){
+      this.$validator.validate().then(result =>{
+        if(result){
+          this.delayLoading = true
+          let _data = {
+            account: this.account,
+            password: this.password
+          }
+
+          this.$http.post('/login',_data).then(response => {
+            console.log(response)
+
+          })
+        }else{
+          alert('Correct them errors!')
+        }
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -78,7 +111,8 @@ table td {
 .subTr {
   text-align: center;
 }
-.subTr input {
+.subTr input,
+.subTr button {
   padding: 5px;
   width: 100%;
   cursor: pointer;
