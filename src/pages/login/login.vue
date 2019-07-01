@@ -67,7 +67,20 @@ export default {
 
           this.$http.post('/login',_data).then(response => {
             console.log(response)
-
+            // 判断登录状态是否成功
+            if(response.data.isLogin){
+              // 分发 action 设置用户信息
+              this.$store.dispatch('storeUser/actSetUser', response.data).then(() => {
+                // 获取用户权限
+                let _roles = this.$store.getters.userInfo.roles
+                // 根据用户权限动态生成路由表
+                this.$store.dispatch('storeRouters/getRoutes',_roles).then(() => {
+                  this.$router.addRoutes(this.$store.getters.addRoutes)
+                  // 登陆成功后跳转到首页
+                  window.location.replace('/');
+                })
+              })
+            }
           })
         }else{
           alert('Correct them errors!')

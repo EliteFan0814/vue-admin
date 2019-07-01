@@ -23,7 +23,7 @@ Mock.mock('/login', 'post', function (options) {
     }else{
         _usersData = [{isLogin: false}]
     }
-
+    console.log('ddd',_usersData[0])
     return _usersData[0]
 })
 

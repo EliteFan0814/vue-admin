@@ -1,4 +1,5 @@
 import Mock from 'mockjs'
+
 let Random = Mock.Random
 
 export default Mock.mock([

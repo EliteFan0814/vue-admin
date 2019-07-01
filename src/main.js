@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import VeeValidate from 'vee-validate'
+import store from './store/index.js'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
@@ -15,6 +16,7 @@ Vue.use(VeeValidate)
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

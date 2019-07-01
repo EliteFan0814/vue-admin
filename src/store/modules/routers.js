@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import {adminRoutes,normalRoutes} from '@/mock/router'
+import {adminRoutes,normalRoutes} from '@/mock/routers.js'
 
 const state = {
     // 初始化 要加入的 权限路由
@@ -23,4 +23,11 @@ const actions = {
             commit('setRouters',normalRoutes())
         }
     }
+}
+
+export default {
+    namespaced: true,
+    state,
+    mutations,
+    actions
 }
