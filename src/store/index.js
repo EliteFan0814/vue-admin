@@ -12,7 +12,7 @@ export default new Vuex.Store({
         storeUser
     },
     getters: {
-        addRoutes: state => state.storeRouters,
+        addRoutes: state => state.storeRouters.addRoutes,
         userInfo: state => state.storeUser
     }
 })

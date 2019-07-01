@@ -4,7 +4,6 @@ import store from '@/store/index'
 import Cookie from 'js-cookie'
 
 import { commonRoutes } from '@/mock/routers.js'
-import routers from '../store/modules/routers';
 
 Vue.use(Router)
 
@@ -29,11 +28,23 @@ if(Cookie.getJSON('accountData') && Cookie.getJSON('accountData').isLogin){
     let _roles = store.getters.userInfo._roles
     // 根据 roles 权限生成可访问的路由表
     store.dispatch('storeRouters/getRoutes',_roles).then(() => {
-      routers.addRoutes(store.getters.addRoutes)
+      console.log('sssss',store.getters)
+      console.log('rrrrr',router)
+      router.addRoutes(store.getters.addRoutes)
     })
   })
 }else{
-  routers.addRoutes([commonRoutes()])
+  router.addRoutes([commonRoutes()])
 }
 
+router.beforeEach((to, from, next) => {
+  // 从 cookie 判断是否登录
+  if (Cookie.getJSON('accountData') && Cookie.getJSON('accountData').isLogin) { 
+    next();//当有用户权限的时候，说明当前用户可访问路由已生成
+  } else if (to.path === '/login') {
+    next();
+  } else {
+    next('/login'); 
+  }
+});
 export default router

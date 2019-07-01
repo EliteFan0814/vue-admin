@@ -21,6 +21,7 @@ export function commonRoutes(){
 let logedObj = {
     path: '/',
     name: 'loged',
+    redirect: '/index',
     components: {
         default: mainContext,
         sidebar: sideBar

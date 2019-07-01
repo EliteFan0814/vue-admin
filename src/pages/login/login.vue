@@ -80,6 +80,9 @@ export default {
                   window.location.replace('/');
                 })
               })
+            }else{
+              alert('登陆失败')
+              this.delayLoading = false
             }
           })
         }else{
