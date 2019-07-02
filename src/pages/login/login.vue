@@ -75,9 +75,14 @@ export default {
                 let _roles = this.$store.getters.userInfo.roles
                 // 根据用户权限动态生成路由表
                 this.$store.dispatch('storeRouters/getRoutes',_roles).then(() => {
+                  console.log(1)
+                  console.log(this.$store.getters.addRoutes)
+                  console.log(2)
+                  console.log(this.$router)
                   this.$router.addRoutes(this.$store.getters.addRoutes)
+                  console.log(33333)
                   // 登陆成功后跳转到首页
-                  window.location.replace('/');
+                  this.$router.push('/')
                 })
               })
             }else{

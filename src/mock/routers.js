@@ -7,10 +7,13 @@ import indexRouter from '@/pages/home/router.js'
 // 管理员显示的路由
 import roleRouter from '@/pages/role/router.js'
 
+import mainContext from '@/components/maincontext.vue'
+import sideBar from '@/components/sidebar.vue'
+
 // 中间 内容组件
-const mainContext = resolve => require(['@/components/maincontext.vue'],resolve)
+// const mainContext = resolve => require(['@/components/maincontext.vue'],resolve)
 // 左侧 sidebar 组件
-const sideBar = resolve => require(['@/components/sidebar.vue'],resolve)
+// const sideBar = resolve => require(['@/components/sidebar.vue'],resolve)
 
 // 登陆界面
 export function commonRoutes(){
